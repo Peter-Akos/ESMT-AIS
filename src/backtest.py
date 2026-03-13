@@ -153,6 +153,28 @@ equity_curve = (1 + port_rets_net).cumprod()
 long_rets = (daily_weights[daily_weights > 0] * simple_rets).sum(axis=1)
 short_rets = (daily_weights[daily_weights < 0] * simple_rets).sum(axis=1)
 
+# Persist PnL series for external analysis
+pnl_output_path = "data/strategy_daily_pnl.csv"
+equity_output_path = "data/strategy_equity_curve.csv"
+legs_output_path = "data/strategy_legs_pnl.csv"
+
+pd.DataFrame(
+    {
+        "port_rets_net": port_rets_net,
+        "port_rets_gross": port_rets_gross,
+        "tc_drag": tc_drag,
+    }
+).to_csv(pnl_output_path)
+
+pd.DataFrame({"equity_curve": equity_curve}).to_csv(equity_output_path)
+
+pd.DataFrame(
+    {
+        "long_rets": long_rets,
+        "short_rets": short_rets,
+    }
+).to_csv(legs_output_path)
+
 # ==========================================
 # 5. KEY METRICS COMPUTATION
 # ==========================================
