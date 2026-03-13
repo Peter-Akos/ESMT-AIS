@@ -27,7 +27,7 @@ This project implements and backtests a **global cross-asset long–short moment
   - **11‑month volatility**: standard deviation of log returns in same window, annualized.
   - **Risk‑adjusted momentum score**:
     $$
-    \text{mom\_score}(i, T) = \frac{\text{raw\_mom}(i, T)}{\text{vol\_11m}(i, T)}
+    \text{mom}_{score}(i, T) = \frac{\text{raw}_{mom}(i, T)}{\text{vol}_{11m}(i, T)}
     $$
 - **Ranking and buckets**:
   - Cross‑sectional rank of `mom_score` at each rebalance.
@@ -36,8 +36,8 @@ This project implements and backtests a **global cross-asset long–short moment
   - Middle 40%: no position.
 - **Position sizing**:
   - 21‑day (1‑month) rolling annualized volatility `vol_1m` for risk-parity sizing.
-  - Longs: weights ∝ $1 / \text{vol\_1m}$, normalized to sum to +1.0.
-  - Shorts: weights ∝ $1 / \text{vol\_1m}$, normalized to sum to −1.0.
+  - Longs: weights ∝ $1 / \text{vol}_{1m}$, normalized to sum to +1.0.
+  - Shorts: weights ∝ $1 / \text{vol}_{1m}$, normalized to sum to −1.0.
   - Net exposure approximately 0, gross exposure ≈ 2.
 - **Transaction costs**:
   - Per‑rebalance turnover estimated from absolute weight changes.
@@ -140,5 +140,3 @@ Whether the strategy is ultimately investable depends on your tolerance for leve
   ![Exposure time series](figures/exposure_time_series.png)
 - **Rolling Sharpe and long/short contribution** (from `pnl_analysis.ipynb`):
   ![Rolling Sharpe and long/short contribution](figures/rolling_sharpe_and_long_short_contribution.png)
-
-These charts collectively show how the strategy allocates capital, how those decisions evolve over time, and how they translate into realized PnL.
