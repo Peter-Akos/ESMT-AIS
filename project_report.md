@@ -10,11 +10,9 @@ This project implements and backtests a **global cross-asset long–short moment
 
   - Cleaned in `src/prepare_data.py` / `notebooks/data_coverage_analysis.ipynb`:
 
-    - Multi-index CSV (price type × ticker) → single-level Close price panel.
+    - Multi-index CSV (price type × ticker) → single-level **Adj Close** price panel.
 
-    - Forward-fill for isolated missing observations.
-
-    - Leading missing data left as NaN where ETFs start trading later.
+    - In the final dataset used by `src/backtest.py`, there were no gaps in the Adj Close history for the selected ETFs over the backtest window, so **no forward-filling of prices was required**.
 
 - **Calendar**:
 
@@ -34,7 +32,9 @@ This project implements and backtests a **global cross-asset long–short moment
 
 - **Signals** (computed in `src/backtest.py`):
 
-  - Daily log returns from cleaned Close prices.
+  - On each rebalance date, the strategy is **rebalanced based on risk‑adjusted momentum (risk‑adjusted returns)**: assets are ranked cross‑sectionally by their `mom_score` and long/short buckets are formed from this ranking.
+
+  - Daily log returns from cleaned **Adj Close** prices.
 
   - Lookback: $L=252$ trading days (12 months), skip last 21 days (1 month).
 
